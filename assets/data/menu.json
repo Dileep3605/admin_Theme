@@ -11,6 +11,12 @@
       }
     },
     {
+      "route": "listbook",
+      "name": "listbook",
+      "type": "link",
+      "icon": "dashboard"
+    },
+    {
       "route": "design",
       "name": "design",
       "type": "sub",
