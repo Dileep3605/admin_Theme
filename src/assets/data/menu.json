@@ -11,8 +11,8 @@
       }
     },
     {
-      "route": "list-book",
-      "name": "list-book",
+      "route": "listbook",
+      "name": "listbook",
       "type": "link",
       "icon": "dashboard"
     },
