@@ -1,7 +1,7 @@
 {
   "menu": {
     "dashboard": "Dashboard",
-    "list-book": "List Book",
+    "listbook": "List Book",
     "design": "Design",
     "design.colors": "Color System",
     "design.icons": "Material Icons",
