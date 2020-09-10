@@ -21,7 +21,7 @@
     "release": "npm run build:release && npm run deploy",
     "publish": "npm run build:schematics && cd dist/schematics && npm publish",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
-    "automate": "ng build --prod --base-href /admin_Theme/dist/admin-theme/",
+    "automate": "ng build --prod --base-href /admin_Theme/",
     "gitdeploy": "ngh --dir dist/admin-theme"
   },
   "private": true,
@@ -39,6 +39,7 @@
     "@angular/platform-browser": "~10.0.8",
     "@angular/platform-browser-dynamic": "~10.0.8",
     "@angular/router": "~10.0.8",
+    "@angular/service-worker": "~10.0.8",
     "@mat-datetimepicker/core": "^5.0.1",
     "@mat-datetimepicker/moment": "^5.0.1",
     "@ng-matero/extensions": "^10.0.0",

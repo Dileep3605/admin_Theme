@@ -20,6 +20,8 @@ export function TranslateHttpLoaderFactory(http: HttpClient) {
 import { httpInterceptorProviders } from '@core/interceptors';
 import { appInitializerProviders } from '@core/initializers';
 import { FormlyConfigModule } from './formly-config.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,6 +42,7 @@ import { FormlyConfigModule } from './formly-config.module';
         deps: [HttpClient],
       },
     }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [httpInterceptorProviders, appInitializerProviders],
   bootstrap: [AppComponent],
