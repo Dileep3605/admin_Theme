@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AddBookComponent } from '../add-book/add-book.component';
+import { ListBook } from '../model/listBook.model';
 @Component({
   selector: 'app-book',
   templateUrl: './book.component.html',
@@ -9,26 +12,42 @@ import { MatSort } from '@angular/material/sort';
 })
 export class BookComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
-    'position',
-    'name',
+    'index',
+    'prospectName',
     'age',
     'mobile',
     'address',
     'maritalStatus',
-    'relation',
-    'degreeOfRelation',
     'occupation',
     'income',
+    'relation',
+    'degreeOfRelation',
     'profile',
-    'remark',
-    'action',
+    'remarks',
+    'isWorking',
+    'inNextTarget',
+    'status',
+    'actions',
   ];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+
+  dataSource = new MatTableDataSource<ListBook>(ELEMENT_DATA);
   @ViewChild(MatSort) sort: MatSort;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor() {}
+  constructor(public dialog: MatDialog) {}
+
+  addBook(): void {
+    const dialogRef = this.dialog.open(AddBookComponent, {
+      width: '520px',
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.dataSource.data.push(result);
+    });
+  }
 
   ngOnInit(): void {
     throw new Error('Method not implemented.');
@@ -38,143 +57,148 @@ export class BookComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  age: number;
-  mobile: number;
-  address: string;
-  maritalStatus: string;
-  relation: string;
-  degreeOfRelation: string;
-  occupation: string;
-  income: string;
-  profile: string;
-  remark: string;
-  action: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
+const ELEMENT_DATA: ListBook[] = [
   {
-    name: 'Student 1',
-    position: 1,
-    age: 24,
+    prospectName: 'Student 1',
+    age: 28,
     mobile: 9999999999,
-    address: 'West UK',
+    city: 'Noida',
+    state: 'UP',
     maritalStatus: 'Single',
+    occupation: 'Student',
+    income: 50000,
     relation: 'Son',
     degreeOfRelation: 'Warm',
-    occupation: 'Student',
-    income: '50000',
-    profile: 'blank',
-    remark: 'blank',
-    action: '',
+    profile: 'Above',
+    remarks: '-',
+    isWorking: false,
+    inNextTarget: true,
+    status: 'New',
   },
   {
-    name: 'Student 2',
-    position: 2,
-    age: 26,
+    prospectName: 'Student 2',
+    age: 28,
     mobile: 9999999999,
-    address: 'West UK',
+    city: 'Noida',
+    state: 'UP',
     maritalStatus: 'Single',
+    occupation: 'Student',
+    income: 50000,
     relation: 'Son',
     degreeOfRelation: 'Warm',
-    occupation: 'Student',
-    income: '50000',
-    profile: 'blank',
-    remark: 'blank',
-    action: '',
+    profile: 'Above',
+    remarks: '-',
+    isWorking: false,
+    inNextTarget: true,
+    status: 'New',
   },
   {
-    name: 'Student 3',
-    position: 3,
-    age: 22,
+    prospectName: 'Student 3',
+    age: 28,
     mobile: 9999999999,
-    address: 'West UK',
+    city: 'Noida',
+    state: 'UP',
     maritalStatus: 'Single',
+    occupation: 'Student',
+    income: 50000,
     relation: 'Son',
     degreeOfRelation: 'Warm',
-    occupation: 'Student',
-    income: '50000',
-    profile: 'blank',
-    remark: 'blank',
-    action: '',
+    profile: 'Above',
+    remarks: '-',
+    isWorking: false,
+    inNextTarget: true,
+    status: 'New',
   },
   {
-    name: 'Student 4',
-    position: 4,
-    age: 21,
+    prospectName: 'Student 4',
+    age: 28,
     mobile: 9999999999,
-    address: 'West UK',
+    city: 'Noida',
+    state: 'UP',
     maritalStatus: 'Single',
+    occupation: 'Student',
+    income: 50000,
     relation: 'Son',
     degreeOfRelation: 'Warm',
-    occupation: 'Student',
-    income: '50000',
-    profile: 'blank',
-    remark: 'blank',
-    action: '',
+    profile: 'Above',
+    remarks: '-',
+    isWorking: false,
+    inNextTarget: true,
+    status: 'New',
   },
   {
-    name: 'Student 5',
-    position: 5,
-    age: 24,
+    prospectName: 'Student 5',
+    age: 28,
     mobile: 9999999999,
-    address: 'West UK',
+    city: 'Noida',
+    state: 'UP',
     maritalStatus: 'Single',
+    occupation: 'Student',
+    income: 50000,
     relation: 'Son',
     degreeOfRelation: 'Warm',
-    occupation: 'Student',
-    income: '50000',
-    profile: 'blank',
-    remark: 'blank',
-    action: '',
+    profile: 'Above',
+    remarks: '-',
+    isWorking: false,
+    inNextTarget: true,
+    status: 'New',
   },
   {
-    name: 'Student 6',
-    position: 6,
-    age: 26,
+    prospectName: 'Student 6',
+    age: 28,
     mobile: 9999999999,
-    address: 'West UK',
+    city: 'Noida',
+    state: 'UP',
     maritalStatus: 'Single',
+    occupation: 'Student',
+    income: 50000,
     relation: 'Son',
     degreeOfRelation: 'Warm',
-    occupation: 'Student',
-    income: '50000',
-    profile: 'blank',
-    remark: 'blank',
-    action: '',
+    profile: 'Above',
+    remarks: '-',
+    isWorking: false,
+    inNextTarget: true,
+    status: 'New',
   },
   {
-    name: 'Student 7',
-    position: 7,
-    age: 27,
+    prospectName: 'Student 7',
+    age: 28,
     mobile: 9999999999,
-    address: 'West UK',
+    city: 'Noida',
+    state: 'UP',
     maritalStatus: 'Single',
+    occupation: 'Student',
+    income: 50000,
     relation: 'Son',
     degreeOfRelation: 'Warm',
-    occupation: 'Student',
-    income: '50000',
-    profile: 'blank',
-    remark: 'blank',
-    action: '',
+    profile: 'Above',
+    remarks: '-',
+    isWorking: false,
+    inNextTarget: true,
+    status: 'New',
   },
   {
-    name: 'Student 8',
-    position: 8,
-    age: 20,
+    prospectName: 'Student 8',
+    age: 28,
     mobile: 9999999999,
-    address: 'West UK',
+    city: 'Noida',
+    state: 'UP',
     maritalStatus: 'Single',
+    occupation: 'Student',
+    income: 50000,
     relation: 'Son',
     degreeOfRelation: 'Warm',
-    occupation: 'Student',
-    income: '50000',
-    profile: 'blank',
-    remark: 'blank',
-    action: '',
+    profile: 'Above',
+    remarks: '-',
+    isWorking: false,
+    inNextTarget: true,
+    status: 'New',
   },
 ];
