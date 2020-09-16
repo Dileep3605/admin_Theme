@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -35,18 +35,26 @@ export class BookComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private cdRef: ChangeDetectorRef) {}
 
-  addBook(): void {
+  addBook() {
+    this.openDialog();
+  }
+
+  openDialog(bookData?: ListBook): void {
     const dialogRef = this.dialog.open(AddBookComponent, {
       width: '520px',
-      data: {},
+      data: bookData ? bookData : null,
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      this.dataSource.data.push(result);
+      this.refresh(result);
     });
+  }
+
+  editBook(index: number) {
+    this.openDialog(this.dataSource.data[index]);
   }
 
   ngOnInit(): void {
@@ -62,6 +70,13 @@ export class BookComponent implements OnInit, AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  refresh(data) {
+    if (data) {
+      this.dataSource.data.push(data);
+    }
+    this.cdRef.detectChanges();
+  }
 }
 
 const ELEMENT_DATA: ListBook[] = [
@@ -70,7 +85,7 @@ const ELEMENT_DATA: ListBook[] = [
     age: 28,
     mobile: 9999999999,
     city: 'Noida',
-    state: 'UP',
+    state: 'Uttar Pradesh',
     maritalStatus: 'Single',
     occupation: 'Student',
     income: 50000,
@@ -87,7 +102,7 @@ const ELEMENT_DATA: ListBook[] = [
     age: 28,
     mobile: 9999999999,
     city: 'Noida',
-    state: 'UP',
+    state: 'Uttar Pradesh',
     maritalStatus: 'Single',
     occupation: 'Student',
     income: 50000,
@@ -104,7 +119,7 @@ const ELEMENT_DATA: ListBook[] = [
     age: 28,
     mobile: 9999999999,
     city: 'Noida',
-    state: 'UP',
+    state: 'Uttar Pradesh',
     maritalStatus: 'Single',
     occupation: 'Student',
     income: 50000,
@@ -121,7 +136,7 @@ const ELEMENT_DATA: ListBook[] = [
     age: 28,
     mobile: 9999999999,
     city: 'Noida',
-    state: 'UP',
+    state: 'Uttar Pradesh',
     maritalStatus: 'Single',
     occupation: 'Student',
     income: 50000,
@@ -138,7 +153,7 @@ const ELEMENT_DATA: ListBook[] = [
     age: 28,
     mobile: 9999999999,
     city: 'Noida',
-    state: 'UP',
+    state: 'Uttar Pradesh',
     maritalStatus: 'Single',
     occupation: 'Student',
     income: 50000,
@@ -155,7 +170,7 @@ const ELEMENT_DATA: ListBook[] = [
     age: 28,
     mobile: 9999999999,
     city: 'Noida',
-    state: 'UP',
+    state: 'Uttar Pradesh',
     maritalStatus: 'Single',
     occupation: 'Student',
     income: 50000,
@@ -172,7 +187,7 @@ const ELEMENT_DATA: ListBook[] = [
     age: 28,
     mobile: 9999999999,
     city: 'Noida',
-    state: 'UP',
+    state: 'Uttar Pradesh',
     maritalStatus: 'Single',
     occupation: 'Student',
     income: 50000,
@@ -189,7 +204,7 @@ const ELEMENT_DATA: ListBook[] = [
     age: 28,
     mobile: 9999999999,
     city: 'Noida',
-    state: 'UP',
+    state: 'Uttar Pradesh',
     maritalStatus: 'Single',
     occupation: 'Student',
     income: 50000,

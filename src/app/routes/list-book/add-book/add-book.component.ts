@@ -37,7 +37,7 @@ export class AddBookComponent implements OnInit {
     this.addBookForm = this.fb.group({
       prospectName: [null, [Validators.required, Validators.maxLength(50)]],
       age: [null, [Validators.required, Validators.min(18), Validators.max(99)]],
-      mobile: [null, [Validators.required, Validators.maxLength(10)]],
+      mobile: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       city: [null, [Validators.required, Validators.maxLength(50)]],
       state: [null, [Validators.required]],
       maritalStatus: [null, [Validators.required]],
@@ -51,6 +51,31 @@ export class AddBookComponent implements OnInit {
       inNextTarget: [null, [Validators.required]],
       status: ['New', [Validators.required]],
     });
+    if (this.data) {
+      this.initDialog();
+    }
+  }
+
+  initDialog() {
+    this.addBookForm.setValue({
+      prospectName: this.data.prospectName,
+      age: this.data.age,
+      mobile: this.data.mobile,
+      city: this.data.city,
+      state: this.data.state,
+      maritalStatus: this.data.maritalStatus,
+      occupation: this.data.occupation,
+      income: this.data.income,
+      relation: this.data.relation,
+      degreeOfRelation: this.data.degreeOfRelation,
+      profile: this.data.profile,
+      remarks: this.data.remarks,
+      isWorking: this.data.isWorking.toString(),
+      inNextTarget: this.data.inNextTarget.toString(),
+      status: this.data.status,
+    });
+    this.addBookForm.updateValueAndValidity();
+    console.log(this.data);
   }
 
   addBook() {

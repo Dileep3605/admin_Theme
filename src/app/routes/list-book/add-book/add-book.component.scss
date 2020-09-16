@@ -1,4 +1,9 @@
-
 .mat-dialog-actions{
     justify-content: flex-end;
+}
+
+@media (max-width: 620px){
+    .mat-form-field{
+        width: 100%;
+    }
 }

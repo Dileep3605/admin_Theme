@@ -19,7 +19,7 @@
             </ng-container>
 
             <!-- Prospect Name Column -->
-            <ng-container matColumnDef="prospectName">
+            <ng-container matColumnDef="prospectName" sticky>
                 <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="150px"> Prospect Name </th>
                 <td mat-cell *matCellDef="let element" fxFlex="150px"> {{element.prospectName}} </td>
             </ng-container>
@@ -106,12 +106,12 @@
             <!-- Action Column -->
             <ng-container matColumnDef="actions" stickyEnd>
                 <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="50px"> Actions </th>
-                <td mat-cell *matCellDef="let element" fxFlex="50px"> <button mat-icon-button
+                <td mat-cell *matCellDef="let element; let i = index" fxFlex="50px"> <button mat-icon-button
                             [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                         <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
+                        <button mat-menu-item (click)="editBook(i)">
                             <span>Edit</span>
                         </button>
                         <button mat-menu-item>

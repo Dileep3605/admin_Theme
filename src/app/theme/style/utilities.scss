@@ -1,14 +1,109 @@
-.d-flex{
-    display: flex;
-}
-.justify-content-between{
-    justify-content: space-between;
+@import './variables';
+@import './media';
+
+
+@each $key, $value in $display {
+    .d-#{$key}{
+        display: #{$value} !important;
+    }
+    @include mq(620px){
+        .d-sm-#{$key}{
+            display: #{$value} !important;
+        }
+    }
+    @include mq(992px, 621px){
+        .d-md-#{$key}{
+            display: #{$value} !important;
+        }
+    }
+    @include mq(1200px, 993px){
+        .d-lg-#{$key}{
+            display: #{$value} !important;
+        }
+    }
 }
 
-.align-items-center{
-    align-items: center;
+@each $key, $value in $justify-content {
+    .justify-content-#{$key}{
+        justify-content: #{$value} !important;
+    }
+    @include mq(620px){
+        .justify-content-sm-#{$key}{
+            justify-content: #{$value} !important;
+        }
+    }
+    @include mq(992px, 621px){
+        .justify-content-md-#{$key}{
+            justify-content: #{$value} !important;
+        }
+    }
+    @include mq(1200px, 993px){
+        .justify-content-lg-#{$key}{
+            justify-content: #{$value} !important;
+        }
+    }
 }
 
-.flex-wrap{
-    flex-flow: wrap;
+@each $key, $value in $flex-direction {
+    .flex-#{$key}{
+        flex-direction: #{$value} !important;
+    }
+    @include mq(620px){
+        .flex-sm-#{$key}{
+            flex-direction: #{$value} !important;
+        }
+    }
+    @include mq(992px, 621px){
+        .flex-md-#{$key}{
+            flex-direction: #{$value} !important;
+        }
+    }
+    @include mq(1200px, 993px){
+        .flex-lg-#{$key}{
+            flex-direction: #{$value} !important;
+        }
+    }
 }
+
+@each $key, $value in $flex-flow {
+    .flex-#{$key}{
+        flex-flow: #{$value} !important;
+    }
+    @include mq(620px){
+        .flex-sm-#{$key}{
+            flex-flow: #{$value} !important;
+        }
+    }
+    @include mq(992px, 621px){
+        .flex-md-#{$key}{
+            flex-flow: #{$value} !important;
+        }
+    }
+    @include mq(1200px, 993px){
+        .flex-lg-#{$key}{
+            flex-flow: #{$value} !important;
+        }
+    }
+}
+
+@each $key, $value in $align-items {
+    .align-items-#{$key}{
+        align-items: #{$value} !important;
+    }
+    @include mq(620px){
+        .align-items-sm-#{$key}{
+            align-items: #{$value} !important;
+        }
+    }
+    @include mq(992px, 621px){
+        .align-items-md-#{$key}{
+            align-items: #{$value} !important;
+        }
+    }
+    @include mq(1200px, 993px){
+        .align-items-lg-#{$key}{
+            align-items: #{$value} !important;
+        }
+    }
+}
+

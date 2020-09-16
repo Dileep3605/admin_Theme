@@ -62,3 +62,37 @@ $mat-colors: (
   light: $light-primary-text,
   dark: $dark-primary-text,
 );
+
+$display: (
+  'flex': 'flex',
+  'inline-flex': 'inline-flex',
+  'inline': 'inline',
+  'block': 'block',
+  'inline-block': 'inline-block',
+);
+
+$justify-content:(
+'center': 'center',
+'between': 'space-between',
+'start': 'flex-start',
+'end': 'flex-end',
+'around': 'space-around',
+'evenly': 'space-evenly',
+);
+
+$flex-direction: (
+  'column': 'column',
+  'row': 'row',
+  'row-reverse': 'row-reverse',
+  'column-reverse': 'column-reverse',
+);
+
+$flex-flow: (
+  'wrap': 'wrap',
+  'nowrap': 'nowrap',
+);
+
+$align-items: (
+'center': 'center',
+'baseline': 'baseline'
+);
