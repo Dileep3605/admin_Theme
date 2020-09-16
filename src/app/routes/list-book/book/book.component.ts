@@ -38,13 +38,13 @@ export class BookComponent implements OnInit, AfterViewInit {
   constructor(public dialog: MatDialog, private cdRef: ChangeDetectorRef) {}
 
   addBook() {
-    this.openDialog();
+    this.openDialog(null, 'Add Prospect');
   }
 
-  openDialog(bookData?: ListBook): void {
+  openDialog(bookData?: ListBook, dialogTitle?: string): void {
     const dialogRef = this.dialog.open(AddBookComponent, {
       width: '520px',
-      data: bookData ? bookData : null,
+      data: {title: dialogTitle, prospect: bookData ? bookData : null},
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -54,7 +54,7 @@ export class BookComponent implements OnInit, AfterViewInit {
   }
 
   editBook(index: number) {
-    this.openDialog(this.dataSource.data[index]);
+    this.openDialog(this.dataSource.data[index], 'Edit Prospect');
   }
 
   ngOnInit(): void {
