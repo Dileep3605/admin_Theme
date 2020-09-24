@@ -2,6 +2,9 @@
   "menu": {
     "dashboard": "Dashboard",
     "listbook": "List Book",
+    "listbook.prospects": "Prospects",
+    "listbook.importProspect": "Import Prospects",
+    "listbook.settings": "Settings",
     "organizer": "Organizer",
     "my-team": "My Team",
     "my-team.teams": "Teams",

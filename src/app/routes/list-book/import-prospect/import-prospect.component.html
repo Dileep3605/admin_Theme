@@ -1,0 +1,9 @@
+<breadcrumb></breadcrumb>
+<mat-card>
+    <mat-form-field class="mat-custom-width">
+        <input type="text" matInput placeholder="Select File" (click)="importFile.click()" autocomplete="off">
+        <input type="file" #importFile class="d-none">
+        <mat-hint>Accepted file format is .xlxs</mat-hint>
+    </mat-form-field>
+    <button mat-stroked-button class="m-l-4" (click)="importFile.click()">Choose File</button>
+</mat-card>

@@ -13,8 +13,25 @@
     {
       "route": "listbook",
       "name": "listbook",
-      "type": "link",
-      "icon": "menu_book"
+      "type": "sub",
+      "icon": "menu_book",
+      "children": [
+        {
+          "route": "prospects",
+          "name": "prospects",
+          "type": "link"
+        },
+        {
+          "route": "importProspect",
+          "name": "importProspect",
+          "type": "link"
+        },
+        {
+          "route": "settings",
+          "name": "settings",
+          "type": "link"
+        }
+      ]
     },
     {
       "route": "organizer",

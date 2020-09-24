@@ -1,10 +1,14 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { ListBookService } from '../services/list-book.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AddBookComponent } from '../add-book/add-book.component';
 import { ListBook } from '../model/listBook.model';
+import { AddBookComponent } from '../add-book/add-book.component';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-book',
   templateUrl: './book.component.html',
@@ -22,21 +26,28 @@ export class BookComponent implements OnInit, AfterViewInit {
     'income',
     'relation',
     'degreeOfRelation',
-    'profile',
+    'profileName',
     'remarks',
-    'isWorking',
-    'inNextTarget',
-    'status',
+    'prospectStatus',
     'actions',
   ];
 
-  dataSource = new MatTableDataSource<ListBook>(ELEMENT_DATA);
+  dataSource;
   @ViewChild(MatSort) sort: MatSort;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public dialog: MatDialog, private cdRef: ChangeDetectorRef) {}
-
+  constructor(
+    public dialog: MatDialog,
+    private cdRef: ChangeDetectorRef,
+    private lbService: ListBookService
+  ) {}
+  ngOnInit(): void {
+    this.lbService.getListBook().subscribe((book: ListBook) => {
+      this.dataSource = book;
+      console.log(this.dataSource);
+    });
+  }
   addBook() {
     this.openDialog(null, 'Add Prospect');
   }
@@ -44,7 +55,7 @@ export class BookComponent implements OnInit, AfterViewInit {
   openDialog(bookData?: ListBook, dialogTitle?: string): void {
     const dialogRef = this.dialog.open(AddBookComponent, {
       width: '520px',
-      data: {title: dialogTitle, prospect: bookData ? bookData : null},
+      data: { title: dialogTitle, prospect: bookData ? bookData : null },
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -55,10 +66,6 @@ export class BookComponent implements OnInit, AfterViewInit {
 
   editBook(index: number) {
     this.openDialog(this.dataSource.data[index], 'Edit Prospect');
-  }
-
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
 
   ngAfterViewInit() {
@@ -77,143 +84,15 @@ export class BookComponent implements OnInit, AfterViewInit {
     }
     this.cdRef.detectChanges();
   }
-}
 
-const ELEMENT_DATA: ListBook[] = [
-  {
-    prospectName: 'Student 1',
-    age: 28,
-    mobile: 9999999999,
-    city: 'Noida',
-    state: 'Uttar Pradesh',
-    maritalStatus: 'Single',
-    occupation: 'Student',
-    income: 50000,
-    relation: 'Son',
-    degreeOfRelation: 'Warm',
-    profile: 'Above',
-    remarks: '-',
-    isWorking: false,
-    inNextTarget: true,
-    status: 'New',
-  },
-  {
-    prospectName: 'Student 2',
-    age: 28,
-    mobile: 9999999999,
-    city: 'Noida',
-    state: 'Uttar Pradesh',
-    maritalStatus: 'Single',
-    occupation: 'Student',
-    income: 50000,
-    relation: 'Son',
-    degreeOfRelation: 'Warm',
-    profile: 'Above',
-    remarks: '-',
-    isWorking: false,
-    inNextTarget: true,
-    status: 'New',
-  },
-  {
-    prospectName: 'Student 3',
-    age: 28,
-    mobile: 9999999999,
-    city: 'Noida',
-    state: 'Uttar Pradesh',
-    maritalStatus: 'Single',
-    occupation: 'Student',
-    income: 50000,
-    relation: 'Son',
-    degreeOfRelation: 'Warm',
-    profile: 'Above',
-    remarks: '-',
-    isWorking: false,
-    inNextTarget: true,
-    status: 'New',
-  },
-  {
-    prospectName: 'Student 4',
-    age: 28,
-    mobile: 9999999999,
-    city: 'Noida',
-    state: 'Uttar Pradesh',
-    maritalStatus: 'Single',
-    occupation: 'Student',
-    income: 50000,
-    relation: 'Son',
-    degreeOfRelation: 'Warm',
-    profile: 'Above',
-    remarks: '-',
-    isWorking: false,
-    inNextTarget: true,
-    status: 'New',
-  },
-  {
-    prospectName: 'Student 5',
-    age: 28,
-    mobile: 9999999999,
-    city: 'Noida',
-    state: 'Uttar Pradesh',
-    maritalStatus: 'Single',
-    occupation: 'Student',
-    income: 50000,
-    relation: 'Son',
-    degreeOfRelation: 'Warm',
-    profile: 'Above',
-    remarks: '-',
-    isWorking: false,
-    inNextTarget: true,
-    status: 'New',
-  },
-  {
-    prospectName: 'Student 6',
-    age: 28,
-    mobile: 9999999999,
-    city: 'Noida',
-    state: 'Uttar Pradesh',
-    maritalStatus: 'Single',
-    occupation: 'Student',
-    income: 50000,
-    relation: 'Son',
-    degreeOfRelation: 'Warm',
-    profile: 'Above',
-    remarks: '-',
-    isWorking: false,
-    inNextTarget: true,
-    status: 'New',
-  },
-  {
-    prospectName: 'Student 7',
-    age: 28,
-    mobile: 9999999999,
-    city: 'Noida',
-    state: 'Uttar Pradesh',
-    maritalStatus: 'Single',
-    occupation: 'Student',
-    income: 50000,
-    relation: 'Son',
-    degreeOfRelation: 'Warm',
-    profile: 'Above',
-    remarks: '-',
-    isWorking: false,
-    inNextTarget: true,
-    status: 'New',
-  },
-  {
-    prospectName: 'Student 8',
-    age: 28,
-    mobile: 9999999999,
-    city: 'Noida',
-    state: 'Uttar Pradesh',
-    maritalStatus: 'Single',
-    occupation: 'Student',
-    income: 50000,
-    relation: 'Son',
-    degreeOfRelation: 'Warm',
-    profile: 'Above',
-    remarks: '-',
-    isWorking: false,
-    inNextTarget: true,
-    status: 'New',
-  },
-];
+  openDeleteDialog(index: number) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '400px',
+      data: { title: 'Delete', content: 'Are you sure you want to delete this prospect?' },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh(result);
+    });
+  }
+}

@@ -9,7 +9,9 @@
                         <mat-label>Prospect Name *</mat-label>
                         <input matInput type="text" formControlName="prospectName">
                         <mat-error *ngIf="addBookForm.controls.prospectName.invalid">
-                            {{getErrorMessage()}}</mat-error>
+                            <app-show-error [ctrl]="addBookForm.get('prospectName')">
+                            </app-show-error>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="d-flex justify-content-between align-items-center flex-sm-column">
@@ -17,12 +19,20 @@
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Age *</mat-label>
                         <input matInput type="number" formControlName="age">
+                        <mat-error *ngIf="addBookForm.controls.age.invalid">
+                            <app-show-error [ctrl]="addBookForm.get('age')">
+                            </app-show-error>
+                        </mat-error>
                     </mat-form-field>
 
 
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Mobile *</mat-label>
                         <input matInput type="text" formControlName="mobile">
+                        <mat-error *ngIf="addBookForm.controls.mobile.invalid">
+                            <app-show-error [ctrl]="addBookForm.get('mobile')">
+                            </app-show-error>
+                        </mat-error>
                     </mat-form-field>
 
                 </div>
@@ -30,6 +40,10 @@
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>City *</mat-label>
                         <input matInput type="text" formControlName="city">
+                        <mat-error *ngIf="addBookForm.controls.city.invalid">
+                            <app-show-error [ctrl]="addBookForm.get('city')">
+                            </app-show-error>
+                        </mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="example-full-width">
@@ -39,6 +53,10 @@
                                 {{state.value}}
                             </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="addBookForm.controls.state.invalid">
+                            <app-show-error [ctrl]="addBookForm.get('state')">
+                            </app-show-error>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="d-flex justify-content-between align-items-center flex-sm-column">
@@ -49,10 +67,18 @@
                                 {{mStatus}}
                             </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="addBookForm.controls.maritalStatus.invalid">
+                            <app-show-error [ctrl]="addBookForm.get('maritalStatus')">
+                            </app-show-error>
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Occupation *</mat-label>
                         <input matInput type="text" formControlName="occupation">
+                        <mat-error *ngIf="addBookForm.controls.occupation.invalid">
+                            <app-show-error [ctrl]="addBookForm.get('occupation')">
+                            </app-show-error>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="d-flex justify-content-between align-items-center flex-sm-column">
@@ -63,6 +89,10 @@
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Relation *</mat-label>
                         <input matInput type="text" formControlName="relation">
+                        <mat-error *ngIf="addBookForm.controls.relation.invalid">
+                            <app-show-error [ctrl]="addBookForm.get('relation')">
+                            </app-show-error>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="d-flex justify-content-between align-items-center flex-sm-column">
@@ -74,6 +104,10 @@
                                 {{relation}}
                             </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="addBookForm.controls.degreeOfRelation.invalid">
+                            <app-show-error [ctrl]="addBookForm.get('degreeOfRelation')">
+                            </app-show-error>
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Profile *</mat-label>
@@ -83,13 +117,21 @@
                                 {{profile}}
                             </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="addBookForm.controls.profile.invalid">
+                            <app-show-error [ctrl]="addBookForm.get('profile')">
+                            </app-show-error>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <mat-form-field class="example-full-width w-full" appearance="outline">
                     <mat-label>Remarks *</mat-label>
                     <input matInput type="text" formControlName="remarks">
+                    <mat-error *ngIf="addBookForm.controls.remarks.invalid">
+                        <app-show-error [ctrl]="addBookForm.get('remarks')">
+                        </app-show-error>
+                    </mat-error>
                 </mat-form-field>
-                <div
+                <!-- <div
                      class="d-flex justify-content-between align-items-center flex-sm-column flex-wrap">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>IsWorking *</mat-label>
@@ -119,7 +161,7 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                </div>
+                </div> -->
             </div>
         </div>
         <div mat-dialog-actions>

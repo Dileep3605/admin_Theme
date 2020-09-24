@@ -1,0 +1,18 @@
+<breadcrumb></breadcrumb>
+<mat-card>
+    <form [formGroup]="listbookSettings">
+
+        <mat-slide-toggle
+                          formControlName="shareMobileNo" class="d-block m-b-8">
+            Do you want to hide prospects mobile number while you share your "List Book" to others?
+        </mat-slide-toggle>
+        <mat-slide-toggle
+                          formControlName="exportToExcel" class="d-block m-b-8">
+            Enable export to excel?
+        </mat-slide-toggle>
+        <mat-slide-toggle
+                          formControlName="showDownloadFormat" class="d-block m-b-8">
+            Show download format of "List Book" to upload your prospect list?
+        </mat-slide-toggle>
+    </form>
+</mat-card>

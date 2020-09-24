@@ -1,0 +1,17 @@
+@import '../../../theme/style/variables';
+@import '../../../theme/style/media';
+
+.register-component{
+    max-width: 780px;
+    @include mq(620px){
+        max-width: 360px;
+    }
+    @include mq(992px, 621px){
+        max-width: 860px;
+    }
+    .mat-form-field.m-r-16{
+        @include mq(620px){
+        margin-right: 0 !important;
+        }
+    }
+}

@@ -20,8 +20,10 @@
 
             <!-- Prospect Name Column -->
             <ng-container matColumnDef="prospectName" sticky>
-                <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="150px"> Prospect Name </th>
-                <td mat-cell *matCellDef="let element" fxFlex="150px"> {{element.prospectName}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="150px"> Prospect Name
+                </th>
+                <td mat-cell *matCellDef="let element" fxFlex="150px"> {{element.prospectName}}
+                </td>
             </ng-container>
 
             <!-- Age Column -->
@@ -39,18 +41,22 @@
             <!-- Address Column -->
             <ng-container matColumnDef="address">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="200px"> Address </th>
-                <td mat-cell *matCellDef="let element" fxFlex="200px"> {{element.city}}, {{element.state}}</td>
+                <td mat-cell *matCellDef="let element" fxFlex="200px"> {{element.city}},
+                    {{element.state}}</td>
             </ng-container>
 
             <!-- Marital Status Column -->
             <ng-container matColumnDef="maritalStatus">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="100px"> Marital Status </th>
-                <td mat-cell *matCellDef="let element" fxFlex="100px"> {{element.maritalStatus}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="100px"> Marital Status
+                </th>
+                <td mat-cell *matCellDef="let element" fxFlex="100px"> {{element.maritalStatus}}
+                </td>
             </ng-container>
 
             <!-- Occupation Column -->
             <ng-container matColumnDef="occupation">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="100px"> Occupation </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="100px"> Occupation
+                </th>
                 <td mat-cell *matCellDef="let element" fxFlex="100px"> {{element.occupation}} </td>
             </ng-container>
 
@@ -67,16 +73,18 @@
             </ng-container>
 
             <!-- Relation Degree Column -->
-            <ng-container matColumnDef="degreeOfRelation" >
-                <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="150px"> Relation Degree </th>
-                <td mat-cell *matCellDef="let element" fxFlex="150px"> {{element.degreeOfRelation}} </td>
+            <ng-container matColumnDef="degreeOfRelation">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="150px"> Relation
+                    Degree </th>
+                <td mat-cell *matCellDef="let element" fxFlex="150px"> {{element.degreeOfRelation}}
+                </td>
             </ng-container>
 
 
             <!-- Profile Column -->
-            <ng-container matColumnDef="profile">
+            <ng-container matColumnDef="profileName">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="75px"> Profile </th>
-                <td mat-cell *matCellDef="let element" fxFlex="75px"> {{element.profile}} </td>
+                <td mat-cell *matCellDef="let element" fxFlex="75px"> {{element.profileName}} </td>
             </ng-container>
 
             <!-- Remarks Column -->
@@ -86,27 +94,39 @@
             </ng-container>
 
             <!-- isWorking Column -->
-            <ng-container matColumnDef="isWorking" >
+            <!-- <ng-container matColumnDef="isWorking">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="75px"> isWorking </th>
-                <td mat-cell *matCellDef="let element" fxFlex="75px"> {{element.isWorking}} </td>
-            </ng-container>
+                <td mat-cell *matCellDef="let element" fxFlex="75px">
+                    <mat-slide-toggle
+                                      [checked]="element.isWorking"
+                                      class="example-margin">
+                    </mat-slide-toggle>
+                </td>
+            </ng-container> -->
 
             <!-- inNextTarget Column -->
-            <ng-container matColumnDef="inNextTarget">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="100px"> inNextTarget </th>
-                <td mat-cell *matCellDef="let element" fxFlex="100px"> {{element.inNextTarget}} </td>
-            </ng-container>
+            <!-- <ng-container matColumnDef="inNextTarget">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="100px"> inNextTarget
+                </th>
+                <td mat-cell *matCellDef="let element" fxFlex="100px">
+                    <mat-slide-toggle
+                                      [checked]="element.inNextTarget"
+                                      class="example-margin">
+                    </mat-slide-toggle>
+                </td>
+            </ng-container> -->
 
             <!-- status Column -->
-            <ng-container matColumnDef="status">
+            <ng-container matColumnDef="prospectStatus">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="75px"> Status </th>
-                <td mat-cell *matCellDef="let element" fxFlex="75px"> {{element.status}} </td>
+                <td mat-cell *matCellDef="let element" fxFlex="75px"> {{element.prospectStatus}} </td>
             </ng-container>
 
             <!-- Action Column -->
             <ng-container matColumnDef="actions" stickyEnd>
                 <th mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="50px"> Actions </th>
-                <td mat-cell *matCellDef="let element; let i = index" fxFlex="50px"> <button mat-icon-button
+                <td mat-cell *matCellDef="let element; let i = index" fxFlex="50px"> <button
+                            mat-icon-button
                             [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                         <mat-icon>more_vert</mat-icon>
                     </button>
@@ -114,10 +134,9 @@
                         <button mat-menu-item (click)="editBook(i)">
                             <span>Edit</span>
                         </button>
-                        <button mat-menu-item>
+                        <button mat-menu-item (click)="openDeleteDialog(i)">
                             <span>Delete</span>
                         </button>
-
                     </mat-menu>
                 </td>
             </ng-container>
