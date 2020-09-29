@@ -58,7 +58,7 @@ export class DefaultInterceptor implements HttpInterceptor {
       const body: any = event.body;
       // failure: { code: **, msg: 'failure' }
       // success: { code: 0,  msg: 'success', data: {} }
-      if (body && body.code !== 0) {
+      if (body && body.code !== 0 && body.code !== undefined) {
         if (body.msg && body.msg !== '') {
           this.toastr.error(body.msg);
         }

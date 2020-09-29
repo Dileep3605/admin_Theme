@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SettingsService, StartupService, TokenService } from '@core';
+import { SettingsService, StartupService, TokenService, User } from '@core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,17 +10,18 @@ import { SettingsService, StartupService, TokenService } from '@core';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-
+  loginUser: User;
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private token: TokenService,
     private startup: StartupService,
-    private settings: SettingsService
+    private settings: SettingsService,
+    private authService: AuthService
   ) {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.pattern('ng-matero')]],
-      password: ['', [Validators.required, Validators.pattern('ng-matero')]],
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
     });
   }
 
@@ -34,16 +36,39 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    const { token, uid, username } = { token: 'ng-matero-token', uid: 1, username: 'ng-matero' };
-    // Set user info
-    this.settings.setUser({
-      id: uid,
-      name: 'Zongbin',
-      email: 'nzb329@163.com',
-      avatar: '/assets/images/avatar.jpg',
-    });
-    // Set token info
-    this.token.set({ token, uid, username });
+    this.authService.login(this.username.value, this.password.value).subscribe(
+      (userDetails: User) => {
+        this.loginUser = userDetails;
+      },
+      error => {
+        console.error('Error in login' + error);
+      },
+      () => {
+        // Set user info
+        const { token, uid, username } = {
+          token: this.loginUser.token,
+          uid: this.loginUser.id,
+          username: this.loginUser.firstName,
+        };
+        this.settings.setUser({
+          id: this.loginUser.id,
+          firstName: this.loginUser.firstName,
+          lastName: this.loginUser.lastName,
+          userName: this.loginUser.userName,
+          email: this.loginUser.email,
+          mobile: this.loginUser.mobile,
+          companyId: this.loginUser.companyId,
+          companyName: this.loginUser.companyName,
+          companyShortName: this.loginUser.companyShortName,
+          uniqueId: this.loginUser.uniqueId,
+          token: this.loginUser.token,
+          avatar: '/assets/images/avatar.jpg',
+        });
+        // Set token info
+        this.token.set({ token, uid, username });
+      }
+    );
+
     // Regain the initial data
     this.startup.load().then(() => {
       let url = this.token.referrer!.url || '/';

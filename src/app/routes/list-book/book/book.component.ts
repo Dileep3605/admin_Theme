@@ -1,40 +1,53 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  ChangeDetectorRef,
+  OnDestroy,
+} from '@angular/core';
 import { ListBookService } from '../services/list-book.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ListBook } from '../model/listBook.model';
+import { ListBook, ListBookSettings } from '../model/listBook.model';
 import { AddBookComponent } from '../add-book/add-book.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
-import { Observable } from 'rxjs';
+import { DataSource } from '@angular/cdk/table';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-book',
   templateUrl: './book.component.html',
   styleUrls: ['./book.component.scss'],
 })
-export class BookComponent implements OnInit, AfterViewInit {
+export class BookComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns: string[] = [
     'index',
     'prospectName',
     'age',
     'mobile',
     'address',
-    'maritalStatus',
+    'maritalStatusName',
     'occupation',
     'income',
     'relation',
-    'degreeOfRelation',
+    'degreeOfRelationName',
     'profileName',
     'remarks',
-    'prospectStatus',
+    'prospectStatusName',
     'actions',
   ];
 
-  dataSource;
-  @ViewChild(MatSort) sort: MatSort;
+  dataSource: MatTableDataSource<ListBook>;
+  pageIndex = 0;
+  pageLength = 10;
+  listBookSettings: ListBookSettings;
+  listBookSettingsSubscription: Subscription;
+  listBookSubscription: Subscription;
 
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
@@ -42,15 +55,34 @@ export class BookComponent implements OnInit, AfterViewInit {
     private cdRef: ChangeDetectorRef,
     private lbService: ListBookService
   ) {}
+
   ngOnInit(): void {
-    this.lbService.getListBook().subscribe((book: ListBook) => {
-      this.dataSource = book;
-      console.log(this.dataSource);
+    this.listBookSubscription = this.lbService
+      .getListBook(this.pageIndex, this.pageLength)
+      .subscribe(
+        (book: any) => {
+          const tableDataSource = book;
+          this.dataSource = new MatTableDataSource(tableDataSource);
+          console.log(this.dataSource);
+        },
+        error => {
+          console.error(`Error in getListBook Data Fetching - ${error}`);
+        },
+        () => {
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
+      );
+
+    this.listBookSettingsSubscription = this.lbService.getListBookSettings().subscribe(settings => {
+      this.listBookSettings = settings;
     });
   }
-  addBook() {
+  addProspect() {
     this.openDialog(null, 'Add Prospect');
   }
+
+  exportToExcel() {}
 
   openDialog(bookData?: ListBook, dialogTitle?: string): void {
     const dialogRef = this.dialog.open(AddBookComponent, {
@@ -68,31 +100,38 @@ export class BookComponent implements OnInit, AfterViewInit {
     this.openDialog(this.dataSource.data[index], 'Edit Prospect');
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+  ngAfterViewInit() {}
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   refresh(data) {
-    if (data) {
-      this.dataSource.data.push(data);
-    }
     this.cdRef.detectChanges();
   }
 
-  openDeleteDialog(index: number) {
+  openDeleteDialog(index: number, data: ListBook) {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '400px',
-      data: { title: 'Delete', content: 'Are you sure you want to delete this prospect?' },
+      data: {
+        title: 'Delete',
+        content: 'Are you sure you want to delete this prospect?',
+        prospect: data,
+      },
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.refresh(result);
     });
+  }
+  
+  ngOnDestroy(): void {
+    this.listBookSettingsSubscription.unsubscribe();
+    this.listBookSubscription.unsubscribe();
   }
 }

@@ -12,7 +12,7 @@ import { MenuService, SettingsService, TokenService, User } from '@core';
       [matMenuTriggerFor]="menu"
     >
       <img class="matero-avatar" [src]="user.avatar" width="32" alt="avatar" />
-      <span class="matero-username" fxHide.lt-sm>{{ user.name }}</span>
+      <span class="matero-username" fxHide.lt-sm>{{ user.firstName }}</span>
     </button>
 
     <mat-menu #menu="matMenu">

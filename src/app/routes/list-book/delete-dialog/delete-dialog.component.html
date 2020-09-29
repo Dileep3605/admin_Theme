@@ -3,6 +3,6 @@
     <p class="mb-3 mt-0">{{data.content}}</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true" color="primary">Delete</button>
+    <button mat-button [mat-dialog-close]="true" color="primary" (click)="deleteProspect()">Delete</button>
     <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

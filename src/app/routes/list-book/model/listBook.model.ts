@@ -1,22 +1,29 @@
 export class ListBook {
+  id?: string;
   prospectName: string;
   age: number;
   mobile: number;
   city: string;
   stateId?: number;
-  stateName: string;
+  stateName?: string;
   maritalStatusId?: number;
-  maritalStatus: string;
+  maritalStatusName?: string;
   occupation: string;
   income: string | number;
   relation: string;
   degreeOfRelationId?: number;
-  degreeOfRelation: string;
+  degreeOfRelationName?: string;
   profileId?: number;
-  profileName: string;
+  profileName?: string;
   remarks: string;
-  prospectStatus: string;
-  isWorking: boolean;
-  inNextTarget: boolean;
+  prospectStatusId?: string;
+  prospectStatusName?: string;
 }
 
+export interface ListBookSettings {
+  id: number;
+  isDownloadExcelFormat: boolean;
+  isExportExcel: boolean;
+  isMaskedMobile: boolean;
+  userName: string;
+}

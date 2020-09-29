@@ -7,8 +7,16 @@ export const USER_KEY = 'usr';
 
 export interface User {
   id: number;
-  name?: string;
+  firstName?: string;
+  lastName?: string;
+  userName?: string;
   email?: string;
+  mobile?: string;
+  companyId?: number;
+  companyName?: string;
+  companyShortName?: string;
+  uniqueId?: string;
+  token: string;
   avatar?: string;
 }
 

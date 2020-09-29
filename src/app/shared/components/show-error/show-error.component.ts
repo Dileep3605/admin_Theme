@@ -23,7 +23,6 @@ export class ShowErrorComponent implements OnInit {
   ngOnInit() {}
 
   shouldShowErrors(): boolean {
-    console.log(this.ctrl.errors);
     return this.ctrl && this.ctrl.errors && this.ctrl.touched;
   }
 

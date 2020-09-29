@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
+import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from '../material.module';
 import { MaterialExtensionsModule } from '@ng-matero/extensions';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -22,6 +22,7 @@ import { ShowErrorComponent } from './components/show-error/show-error.component
 
 const THIRD_MODULES = [
   MaterialModule,
+  HttpClientModule,
   MaterialExtensionsModule,
   FlexLayoutModule,
   NgProgressModule,
@@ -33,7 +34,12 @@ const THIRD_MODULES = [
   ToastrModule,
   TranslateModule,
 ];
-const COMPONENTS = [BreadcrumbComponent, PageHeaderComponent, ErrorCodeComponent, ShowErrorComponent];
+const COMPONENTS = [
+  BreadcrumbComponent,
+  PageHeaderComponent,
+  ErrorCodeComponent,
+  ShowErrorComponent,
+];
 const COMPONENTS_DYNAMIC = [];
 const DIRECTIVES = [];
 const PIPES = [];

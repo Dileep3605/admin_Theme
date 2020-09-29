@@ -1,6 +1,6 @@
 const PROXY_CONFIG = {
   '/users/**': {
-    target: 'https://api.github.com',
+    target: 'https://api.swetapandey.org',
     changeOrigin: true,
     secure: false,
     logLevel: 'debug',

@@ -46,8 +46,8 @@
         <mat-form-field appearance="outline" class="m-r-16">
           <mat-label>Company Name</mat-label>
           <mat-select formControlName="companyName">
-            <mat-option *ngFor="let company of companyDropdoenValues" [value]="company.key">
-              {{company.value}}</mat-option>
+            <mat-option *ngFor="let company of companyDropdoenValues" [value]="company.id">
+              {{company.companyName}}</mat-option>
           </mat-select>
           <mat-error *ngIf="registerForm.get('companyName').invalid">
             <app-show-error [ctrl]="registerForm.get('companyName')"></app-show-error>

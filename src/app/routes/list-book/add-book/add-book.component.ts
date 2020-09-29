@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ListBook } from '../model/listBook.model';
 import { BookComponent } from '../book/book.component';
+import { ListBookService } from '../services/list-book.service';
 
 @Component({
   selector: 'app-add-book',
@@ -11,24 +12,16 @@ import { BookComponent } from '../book/book.component';
 })
 export class AddBookComponent implements OnInit {
   addBookForm: FormGroup;
-  states = [
-    {
-      key: 'Delhi',
-      value: 'Delhi',
-    },
-    {
-      key: 'Uttar Pradesh',
-      value: 'Uttar Pradesh',
-    },
-  ];
-  maritalStatus = ['Single', 'Married', 'Widowed', 'Separated', 'Divorced'];
-  degreeOfRelation = ['Hot', 'Warm', 'Cold'];
-  profiles = ['Above', 'Equal', 'Below'];
-  status = ['New', 'Approaching', 'Rejected', 'Following up', 'Joined'];
+  states: any = [];
+  maritalStatus: any = [];
+  degreeOfRelation: any = [];
+  profiles: any = [];
+  prospectStatus: any = [];
   constructor(
     public dialogRef: MatDialogRef<BookComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private listBookService: ListBookService
   ) {
     this.dialogRef.disableClose = true;
   }
@@ -50,20 +43,37 @@ export class AddBookComponent implements OnInit {
       ],
       city: [null, [Validators.required, Validators.maxLength(50)]],
       stateName: [null, [Validators.required]],
-      maritalStatus: [null, [Validators.required]],
+      maritalStatusName: [null, [Validators.required]],
       occupation: [null, [Validators.required, Validators.maxLength(25)]],
       income: [null, [Validators.required]],
       relation: [null, [Validators.required]],
-      degreeOfRelation: [null, [Validators.required]],
+      degreeOfRelationName: [null, [Validators.required]],
       profileName: [null, [Validators.required]],
       remarks: [null, [Validators.required]],
-      isWorking: [null, [Validators.required]],
-      inNextTarget: [null, [Validators.required]],
-      prospectStatus: ['New', [Validators.required]],
+      prospectStatusName: ['1', [Validators.required]],
     });
     if (this.data.prospect) {
       this.initDialog(this.data.prospect);
     }
+
+    this.listBookService.getStates().subscribe(statesData => {
+      this.states = statesData;
+    });
+    this.listBookService.getMaritalStatus().subscribe(maritalStatus => {
+      this.maritalStatus = maritalStatus;
+    });
+
+    this.listBookService.getDegreeOfRelation().subscribe(degreeOfRelation => {
+      this.degreeOfRelation = degreeOfRelation;
+    });
+
+    this.listBookService.getProspectProfile().subscribe(prospectProfiles => {
+      this.profiles = prospectProfiles;
+    });
+
+    this.listBookService.getProspectStatus().subscribe(prospectStatus => {
+      this.prospectStatus = prospectStatus;
+    });
   }
 
   initDialog(data: ListBook) {
@@ -72,46 +82,60 @@ export class AddBookComponent implements OnInit {
       age: data.age,
       mobile: data.mobile,
       city: data.city,
-      stateName: data.stateName,
-      maritalStatus: data.maritalStatus,
+      stateName: data.stateId,
+      maritalStatusName: data.maritalStatusId,
       occupation: data.occupation,
       income: data.income,
       relation: data.relation,
-      degreeOfRelation: data.degreeOfRelation,
-      profileName: data.profileName,
+      degreeOfRelationName: data.degreeOfRelationId,
+      profileName: data.profileId,
       remarks: data.remarks,
-      isWorking: (data.isWorking).toString(),
-      inNextTarget: (data.inNextTarget).toString(),
-      prospectStatus: data.prospectStatus,
+      prospectStatusName: data.prospectStatusId,
     });
     this.addBookForm.updateValueAndValidity();
     console.log(data);
   }
 
   addBook() {
+    debugger;
     if (!this.addBookForm.valid) {
       return;
     }
+    const prospect = this.data.prospect;
+    let prospectId;
+    if (prospect) {
+      prospectId = prospect.id;
+    } else {
+      prospectId = 0;
+    }
+
     this.formData = {
+      id: prospectId,
       prospectName: this.addBookForm.controls.prospectName.value,
       age: this.addBookForm.controls.age.value,
       mobile: this.addBookForm.controls.mobile.value,
       city: this.addBookForm.controls.city.value,
-      stateName: this.addBookForm.controls.stateName.value,
-      maritalStatus: this.addBookForm.controls.maritalStatus.value,
+      stateId: this.addBookForm.controls.stateName.value,
+      maritalStatusId: this.addBookForm.controls.maritalStatusName.value,
       occupation: this.addBookForm.controls.occupation.value,
       income: this.addBookForm.controls.income.value,
       relation: this.addBookForm.controls.relation.value,
-      degreeOfRelation: this.addBookForm.controls.degreeOfRelation.value,
-      profileName: this.addBookForm.controls.profile.value,
+      degreeOfRelationId: this.addBookForm.controls.degreeOfRelationName.value,
+      profileId: this.addBookForm.controls.profileName.value,
       remarks: this.addBookForm.controls.remarks.value,
-      isWorking: this.addBookForm.controls.isWorking.value,
-      inNextTarget: this.addBookForm.controls.inNextTarget.value,
-      prospectStatus: this.addBookForm.controls.status.value,
+      prospectStatusId: this.addBookForm.controls.prospectStatusName.value,
     };
-
-    console.log(this.formData);
-    this.closeDialog();
+    if (prospect) {
+      this.listBookService.updateListBook(this.formData).subscribe(response => {
+        console.log(response);
+        this.closeDialog();
+      });
+    } else {
+      this.listBookService.addListBook(this.formData).subscribe(response => {
+        console.log(response);
+        this.closeDialog();
+      });
+    }
   }
 
   closeDialog() {
